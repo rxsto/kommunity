@@ -1,0 +1,30 @@
+version: v1.0
+name: Deploy to staging
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deploy
+    task:
+      secrets:
+        - name: kubeconfig
+        - name: helmvalues
+      env_vars:
+        - name: KUBECONFIG
+          value: /home/semaphore/.kube/config
+        - name: RELEASE_NAME
+          value: kommunity-staging
+        - name: NAMESPACE
+          value: kommunity-staging
+        - name: HELMVALUES
+          value: /home/semaphore/kommunity-staging.yaml
+      jobs:
+        - name: Deploy to Kubernetes
+          commands:
+            - checkout
+            - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+            - helm upgrade -i $RELEASE_NAME ./chart
+              --set image.tag=${SEMAPHORE_GIT_SHA}
+              --namespace $NAMESPACE
+              --values $HELMVALUES

@@ -1,0 +1,28 @@
+version: v1.0
+name: Main pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Build Docker Image
+    task:
+      secrets:
+        - name: docker-details
+        - name: docker-image-names
+      jobs:
+        - name: Build Docker image
+          commands:
+            - checkout
+            - docker login ${DOCKER_MY_HOST} -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+            - docker build -t ${DOCKER_MY_HOST}/${DOCKER_KOMMUNITY_IMAGE}:$SEMAPHORE_GIT_SHA .
+            - docker push ${DOCKER_MY_HOST}/${DOCKER_KOMMUNITY_IMAGE}:$SEMAPHORE_GIT_SHA
+promotions:
+  - name: Staging deploy
+    pipeline_file: staging-deploy.yml
+    auto_promote_on:
+      - result: passed
+        branch:
+          - develop
+  - name: Production deploy
+    pipeline_file: production-deploy.yml
