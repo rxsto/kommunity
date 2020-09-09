@@ -25,8 +25,6 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", "1.3.8")
 
-    implementation("io.github.cdimascio", "java-dotenv", "5.2.1")
-
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.0.0-RC")
     implementation("net.devrieze", "xmlutil-jvm", "0.80.0-RC")
     implementation("net.devrieze", "xmlutil-serialization-jvm", "0.80.0-RC")

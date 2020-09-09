@@ -1,10 +1,7 @@
 package to.rxs.kommunity.util
 
-import io.github.cdimascio.dotenv.dotenv
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
-
-private val dotenv = dotenv()
 
 /**
  * Helper class that allows you to specify a [prefix] for your whole config.
@@ -45,7 +42,8 @@ internal class EnvironmentVariable<T>(
     private val default: T?
 ) : ReadOnlyProperty<Any, T> {
 
-    @Volatile private var _value: T? = null
+    @Volatile
+    private var _value: T? = null
 
     private val KProperty<*>.prefixedName: String
         get() = prefix?.let { it + name } ?: name
@@ -69,7 +67,7 @@ internal class EnvironmentVariable<T>(
     }
 
     private fun <T> getEnv(property: KProperty<*>, default: T? = null, transform: (String) -> T?): T =
-        dotenv[property.prefixedName]?.let(transform) ?: default ?: missing(property.prefixedName)
+        System.getenv(property.prefixedName)?.let(transform) ?: default ?: missing(property.prefixedName)
 
     private fun missing(name: String): Nothing = error("Missing env variable: $name")
 }
