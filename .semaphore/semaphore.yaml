@@ -19,10 +19,10 @@ blocks:
             - docker push ${DOCKER_MY_HOST}/${DOCKER_KOMMUNITY_IMAGE}:$SEMAPHORE_GIT_SHA
 promotions:
   - name: Staging deploy
-    pipeline_file: staging-deploy.yml
+    pipeline_file: staging-deploy.yaml
     auto_promote_on:
       - result: passed
         branch:
           - develop
   - name: Production deploy
-    pipeline_file: production-deploy.yml
+    pipeline_file: production-deploy.yaml
