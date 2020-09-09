@@ -24,7 +24,9 @@ blocks:
           commands:
             - checkout
             - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+            - helm list -A
             - helm upgrade -i $RELEASE_NAME ./chart
               --set image.tag=${SEMAPHORE_GIT_SHA}
               --namespace $NAMESPACE
               --values $HELMVALUES
+            - helm status $RELEASE_NAME
