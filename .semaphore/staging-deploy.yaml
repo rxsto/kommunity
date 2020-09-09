@@ -29,4 +29,4 @@ blocks:
               --set image.tag=${SEMAPHORE_GIT_SHA}
               --namespace $NAMESPACE
               --values $HELMVALUES
-            - helm status $RELEASE_NAME
+            - helm status $RELEASE_NAME -n $RELEASE_NAME
