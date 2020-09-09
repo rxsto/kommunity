@@ -1,26 +1,35 @@
 plugins {
     java
-    kotlin("jvm") version "1.3.72"
-    kotlin("kapt") version "1.3.72"
+    application
+    kotlin("jvm") version "1.4.0"
+    kotlin("kapt") version "1.4.0"
+    kotlin("plugin.serialization") version "1.4.0"
 }
 
 group = "to.rxs"
 version = "1.0-SNAPSHOT"
 
+application {
+    mainClassName = "to.rxs.kommunity.LauncherKt"
+}
+
 repositories {
     mavenCentral()
     jcenter()
     maven("https://dl.bintray.com/kordlib/Kord")
+    maven("https://kotlin.bintray.com/kotlinx/")
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-
-    runtimeOnly(kotlin("scripting-jsr223-embeddable"))
+    runtimeOnly(kotlin("scripting-jsr223"))
 
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", "1.3.8")
 
     implementation("io.github.cdimascio", "java-dotenv", "5.2.1")
+
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.0.0-RC")
+    implementation("net.devrieze", "xmlutil-jvm", "0.80.0-RC")
+    implementation("net.devrieze", "xmlutil-serialization-jvm", "0.80.0-RC")
 
     implementation("org.slf4j", "slf4j-api", "2.0.0-alpha1")
     implementation("org.apache.logging.log4j", "log4j-slf4j18-impl", "2.13.3")
@@ -34,9 +43,13 @@ dependencies {
 
     implementation("org.xerial", "sqlite-jdbc", "3.32.3.1")
 
-    implementation("com.gitlab.kordlib.kord", "kord-core", "0.5.11")
-    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.2.0")
-    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.2.0")
+    implementation("io.ktor", "ktor-server-netty", "1.4.0")
+    implementation("io.ktor", "ktor-serialization", "1.4.0")
+
+    implementation("com.gitlab.kordlib.kord", "kord-core", "0.6.2")
+    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.3.1")
+    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.3.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
 
     testCompileOnly("junit", "junit", "4.12")
 }
