@@ -1,0 +1,9 @@
+namespace: kommunity
+replicaCount: 1
+image:
+  group: rg.nl-ams.scw.cloud/rxsto-public-docker-images
+  name: kommunity
+  tag: latest
+name: kommunity
+configMap: kommunity-config
+port: 7000

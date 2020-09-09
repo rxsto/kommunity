@@ -1,0 +1,9 @@
+namespace: kommunity-staging
+replicaCount: 1
+image:
+  group: rg.nl-ams.scw.cloud/rxsto-public-docker-images
+  name: kommunity
+  tag: latest
+name: kommunity-staging
+configMap: kommunity-staging-config
+port: 7000
