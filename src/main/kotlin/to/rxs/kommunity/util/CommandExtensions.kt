@@ -1,4 +1,4 @@
-package to.rxs.util
+package to.rxs.kommunity.util
 
 import com.gitlab.kordlib.common.entity.Permission
 import com.gitlab.kordlib.core.event.message.MessageCreateEvent

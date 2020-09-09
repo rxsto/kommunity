@@ -1,10 +1,10 @@
-package to.rxs.io
+package to.rxs.kommunity.io
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.sql.Database
-import to.rxs.Config
-import to.rxs.Environment
+import to.rxs.kommunity.Config
+import to.rxs.kommunity.Environment
 import java.nio.file.Files
 import java.nio.file.Path
 

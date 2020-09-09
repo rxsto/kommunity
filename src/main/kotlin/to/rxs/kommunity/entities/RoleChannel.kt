@@ -1,4 +1,4 @@
-package to.rxs.entities
+package to.rxs.kommunity.entities
 
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass

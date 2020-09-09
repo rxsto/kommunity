@@ -1,4 +1,4 @@
-package to.rxs.util
+package to.rxs.kommunity.util
 
 import io.ktor.client.HttpClient
 

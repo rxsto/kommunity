@@ -1,12 +1,12 @@
-package to.rxs.core
+package to.rxs.kommunity.core
 
 import com.gitlab.kordlib.common.entity.Status
 import com.gitlab.kordlib.core.Kord
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.ticker
-import to.rxs.Config
-import to.rxs.util.NamedThreadFactory
+import to.rxs.kommunity.Config
+import to.rxs.kommunity.util.NamedThreadFactory
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
