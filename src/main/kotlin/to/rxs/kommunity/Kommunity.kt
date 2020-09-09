@@ -42,7 +42,7 @@ class Kommunity {
         GlobalScope.launch(Dispatchers.IO) {
             bot(client) {
                 prefix {
-                    kord { literal("!") or mention() }
+                    kord { literal(Config.PREFIX) or mention() }
                 }
                 configure()
             }

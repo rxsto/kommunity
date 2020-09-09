@@ -9,6 +9,9 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 fun connect() {
+    if (!Config.DATABASE_ACTIVE.toBoolean()) {
+        return
+    }
     if (Config.ENVIRONMENT == Environment.DEVELOPMENT) {
         val path = Path.of("db.sqlite")
         if (!Files.exists(path)) {

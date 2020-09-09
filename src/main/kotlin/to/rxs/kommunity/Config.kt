@@ -6,6 +6,8 @@ import to.rxs.kommunity.util.EnvironmentConfig
 object Config : EnvironmentConfig("") {
 
     val GAMES by getEnv { it.split("|") }
+    val PREFIX by getEnv()
+    val DATABASE_ACTIVE by getEnv()
     val POSTGRES_URL by getEnv()
     val POSTGRES_USERNAME by getEnv()
     val POSTGRES_PASSWORD by getEnv()
