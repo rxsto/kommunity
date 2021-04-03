@@ -23,7 +23,7 @@ fun optOutCommand() = command("opt") {
         val guild = guild ?: return@invoke
         val role = guild.roles.firstOrNull { it.name.equals(argument, ignoreCase = true) }
 
-        if (role == null || role.id.value !in Config.OPT_OUT_ROLES) {
+        if (role == null || role.id.asString !in Config.OPT_OUT_ROLES) {
             respondEmbed {
                 title = "Role not found"
                 description = "Possible roles to opt out are `Server News`, `Video News` and `Stream News`."
