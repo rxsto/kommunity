@@ -56,7 +56,7 @@ object CallbackServer {
 
                 post("youtube/receive") {
                     val event: YouTubeEvent = try {
-                         context.request.call.receive()
+                        context.request.call.receive()
                     } catch (e: SerializationException) {
                         return@post context.respond(HttpStatusCode.UnprocessableEntity)
                     }

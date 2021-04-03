@@ -15,6 +15,7 @@ object RoleChannels : IntIdTable("role_channels") {
 
 class RoleChannel(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<RoleChannel>(RoleChannels)
+
     var type by RoleChannels.type
     var channelId by RoleChannels.channelId
     var reactionEmojiId by RoleChannels.reactionEmojiId

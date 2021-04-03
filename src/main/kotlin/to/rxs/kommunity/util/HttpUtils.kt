@@ -1,5 +1,5 @@
 package to.rxs.kommunity.util
 
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 
 val httpClient = HttpClient()
