@@ -1,28 +1,45 @@
 version: v1.0
-name: Main pipeline
+name: Build Pipeline
+
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
+  containers:
+    - name: main
+      image: openjdk:15-buster
+
 blocks:
-  - name: Build Docker Image
+  - name: Build and Push Docker Images
     task:
       secrets:
-        - name: docker-details
-        - name: docker-image-names
+        - name: gcr
+      env_vars:
+        - name: KEYFILE
+          value: /home/semaphore/.gcr/keyfile.json
+      prologue:
+        commands:
+          - echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
+          - gcloud auth activate-service-account --key-file=$KEYFILE
+          - gcloud auth configure-docker -q
+          - checkout
+          - apt-get install lftp -y
+          - cache restore gradle-wrapper
+          - cache restore gradle-cache
       jobs:
-        - name: Build Docker image
+        - name: Execute Google JIB
           commands:
-            - checkout
-            - docker login ${DOCKER_MY_HOST} -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
-            - docker build -t ${DOCKER_MY_HOST}/${DOCKER_KOMMUNITY_IMAGE}:$SEMAPHORE_GIT_SHA .
-            - docker push ${DOCKER_MY_HOST}/${DOCKER_KOMMUNITY_IMAGE}:$SEMAPHORE_GIT_SHA
+            - ./gradlew jib
+      epilogue:
+        on_pass:
+          commands:
+            - cache store gradle-wrapper ~/.gradle/wrapper
+            - cache store gradle-cache ~/.gradle/caches
+
 promotions:
-  - name: Staging deploy
-    pipeline_file: staging-deploy.yaml
-    auto_promote_on:
-      - result: passed
-        branch:
-          - develop
-  - name: Production deploy
-    pipeline_file: production-deploy.yaml
+  - name: Staging Deploy
+    pipeline_file: staging.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'develop'"
+  - name: Production Deploy
+    pipeline_file: production.yml
