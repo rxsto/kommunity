@@ -24,7 +24,7 @@ spec:
         ports:
         - containerPort: {{ .Values.port }}
         envFrom:
-        - configMapRef: # TODO: create in templates
+        - configMapRef: # TODO: create in templates for ease of deployment
             name: {{ .Values.config }}
       imagePullSecrets:
       - name: {{ .Values.secret }}
