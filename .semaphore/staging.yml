@@ -19,7 +19,7 @@ blocks:
         - name: KUBECONFIG
           value: /home/semaphore/.kube/config
         - name: HELMVALUES
-          value: /home/semaphore/kommunity-staging.yaml
+          value: /home/semaphore/kommunity-staging.yml
         - name: RELEASE_NAME
           value: kommunity-staging
         - name: NAMESPACE
