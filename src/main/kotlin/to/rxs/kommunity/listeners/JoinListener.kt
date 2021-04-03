@@ -1,9 +1,9 @@
 package to.rxs.kommunity.listeners
 
-import com.gitlab.kordlib.common.entity.Snowflake
-import com.gitlab.kordlib.core.Kord
-import com.gitlab.kordlib.core.event.guild.MemberJoinEvent
-import com.gitlab.kordlib.core.on
+import dev.kord.common.entity.Snowflake
+import dev.kord.core.Kord
+import dev.kord.core.event.guild.MemberJoinEvent
+import dev.kord.core.on
 import to.rxs.kommunity.Config
 
 fun Kord.registerJoinRolesListener() = on<MemberJoinEvent> {

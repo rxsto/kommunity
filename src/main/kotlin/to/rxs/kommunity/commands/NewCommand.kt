@@ -2,14 +2,14 @@
 
 package to.rxs.kommunity.commands
 
-import com.gitlab.kordlib.common.entity.Permission
-import com.gitlab.kordlib.core.behavior.channel.createEmbed
-import com.gitlab.kordlib.kordx.commands.annotation.AutoWired
-import com.gitlab.kordlib.kordx.commands.argument.text.QuotedArgument
-import com.gitlab.kordlib.kordx.commands.kord.argument.TextChannelArgument
-import com.gitlab.kordlib.kordx.commands.kord.module.module
-import com.gitlab.kordlib.kordx.commands.model.command.invoke
-import io.ktor.client.request.get
+import dev.kord.common.entity.Permission
+import dev.kord.core.behavior.channel.createEmbed
+import dev.kord.x.commands.annotation.AutoWired
+import dev.kord.x.commands.argument.text.QuotedArgument
+import dev.kord.x.commands.kord.argument.TextChannelArgument
+import dev.kord.x.commands.kord.module.module
+import dev.kord.x.commands.model.command.invoke
+import io.ktor.client.request.*
 import to.rxs.kommunity.commands.arguments.HastebinArgument
 import to.rxs.kommunity.commands.arguments.URLArgument
 import to.rxs.kommunity.util.httpClient
@@ -19,13 +19,19 @@ fun newCommand() = module("admin") {
     command("new-welcomechannel") {
         withPermission(Permission.Administrator)
 
-        com.gitlab.kordlib.kordx.commands.kord.module.command("test") {
+        dev.kord.x.commands.kord.module.command("test") {
             invoke {
                 respond("yo")
             }
         }
 
-        invoke(TextChannelArgument, QuotedArgument(), URLArgument, QuotedArgument(),  HastebinArgument) { channel, titleSentence, avatarUrl, footerSentence, hastebinMatch ->
+        invoke(
+            TextChannelArgument,
+            QuotedArgument(),
+            URLArgument,
+            QuotedArgument(),
+            HastebinArgument
+        ) { channel, titleSentence, avatarUrl, footerSentence, hastebinMatch ->
             val (_, hastebin, code) = hastebinMatch.groupValues
             val rawUrl = "https://$hastebin/raw/$code"
             val content = httpClient.get<String>(rawUrl)

@@ -1,7 +1,7 @@
 package to.rxs.kommunity.core
 
-import com.gitlab.kordlib.common.entity.Status
-import com.gitlab.kordlib.core.Kord
+import dev.kord.common.entity.PresenceStatus
+import dev.kord.core.Kord
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.ticker
@@ -21,7 +21,7 @@ class GameAnimator(private val client: Kord) {
     suspend fun start() {
         for (unit in ticker) {
             client.editPresence {
-                status = Status.Online
+                status = PresenceStatus.Online
                 playing(games.random())
             }
         }

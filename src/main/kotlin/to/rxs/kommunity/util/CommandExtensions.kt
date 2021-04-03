@@ -1,10 +1,11 @@
 package to.rxs.kommunity.util
 
-import com.gitlab.kordlib.common.entity.Permission
-import com.gitlab.kordlib.core.event.message.MessageCreateEvent
-import com.gitlab.kordlib.kordx.commands.kord.model.context.KordCommandEvent
-import com.gitlab.kordlib.kordx.commands.kord.model.respondEmbed
-import com.gitlab.kordlib.kordx.commands.model.command.CommandBuilder
+import dev.kord.common.entity.Permission
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.x.commands.kord.model.context.KordCommandEvent
+import dev.kord.x.commands.kord.model.respondEmbed
+import dev.kord.x.commands.model.command.CommandBuilder
+import dev.kord.x.emoji.Emojis
 
 fun CommandBuilder<MessageCreateEvent, MessageCreateEvent, KordCommandEvent>.withPermission(
     permission: Permission
@@ -14,9 +15,9 @@ fun CommandBuilder<MessageCreateEvent, MessageCreateEvent, KordCommandEvent>.wit
             true
         } else {
             respondEmbed {
-                title = "\uD83D\uDEAB You're not permitted to execute this command!"
+                title = "${Emojis.noEntrySign} You're not permitted to execute this command!"
                 description =
-                    "In order to successfully execute this command you need to have the `${permission.name}` permission."
+                    "In order to successfully execute this command you need to have the `${permission}` permission."
             }
             false
         }
