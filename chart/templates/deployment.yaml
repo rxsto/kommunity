@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicas }}
   serviceName: {{ .Values.name }}
   selector:
     matchLabels:
@@ -19,12 +19,12 @@ spec:
         app: {{ .Values.name }}
     spec:
       containers:
-        - name: {{ .Values.name }}
-          image: {{ .Values.image.group }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
-          ports:
-            - containerPort: {{ .Values.port }}
-          envFrom:
-            - configMapRef:
-                name: {{ .Values.configMap }}
+      - name: {{ .Values.name }}
+        image: {{ .Values.packages }}{{ .Values.image.name }}{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.port }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.config }}
       imagePullSecrets:
-        - name: docker-secrets
+      - name: {{ .Values.secret }}
