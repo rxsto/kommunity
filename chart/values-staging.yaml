@@ -1,9 +1,12 @@
-namespace: kommunity-staging
-replicaCount: 1
-image:
-  group: rg.nl-ams.scw.cloud/rxsto-public-docker-images
-  name: kommunity
-  tag: latest
+namespace: rxsto-staging
+packages: gcr.io/rxs-to/
+secret: rxsto-staging-gcr
 name: kommunity-staging
-configMap: kommunity-staging-config
+replicas: 1
+config: kommunity-staging-config
+image:
+  name: kommunity
+  tag: :latest
 port: 7000
+host: youtube-notifications-receiver-endpoint-staging.rxs.to
+path: /
