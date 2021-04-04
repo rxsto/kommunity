@@ -6,7 +6,7 @@ import dev.kord.core.event.guild.MemberJoinEvent
 import dev.kord.core.on
 import to.rxs.kommunity.Config
 
-fun Kord.registerJoinRolesListener() = on<MemberJoinEvent> {
+fun Kord.joinRolesListener() = on<MemberJoinEvent> {
     member.addRole(Snowflake(Config.SERVER_NEWS_ROLE))
     member.addRole(Snowflake(Config.VIDEO_NEWS_ROLE))
     member.addRole(Snowflake(Config.STREAM_NEWS_ROLE))
