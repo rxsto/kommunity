@@ -9,13 +9,14 @@ import dev.kord.x.commands.kord.model.prefix.kord
 import dev.kord.x.commands.kord.model.prefix.mention
 import dev.kord.x.commands.model.prefix.literal
 import dev.kord.x.commands.model.prefix.or
-import kotlinx.coroutines.Dispatchers
+import kapt.kotlin.generated.configure
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import to.rxs.kommunity.core.GameAnimator
 import to.rxs.kommunity.io.connect
-import to.rxs.kommunity.listeners.registerJoinRolesListener
+import to.rxs.kommunity.listeners.joinRolesListener
+import to.rxs.kommunity.listeners.selfMentionListener
 import to.rxs.kommunity.youtube.CallbackServer
 import to.rxs.kommunity.youtube.YoutubeEventListener
 
@@ -23,46 +24,53 @@ private val log = KotlinLogging.logger {}
 
 class Kommunity {
 
-    private lateinit var client: Kord
+    private lateinit var kord: Kord
     private lateinit var gameAnimator: GameAnimator
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread(::shutdown))
     }
 
-    suspend fun start() {
-        client = Kord(Config.DISCORD_TOKEN)
-
-        GlobalScope.launch(Dispatchers.IO) {
-            bot(client) {
-                prefix {
-                    kord { literal(Config.PREFIX) or mention() }
-                }
-                build()
-            }
-
-            client.login {
-                log.info { "Logging in..." }
-                status = PresenceStatus.DoNotDisturb
-                playing("Starting...")
-            }
-        }
-
-        gameAnimator = GameAnimator(client)
-
+    suspend fun launch() {
         log.info { "Connecting to database..." }
         connect()
 
-        client.on<ReadyEvent> {
+        kord = Kord(Config.DISCORD_TOKEN)
+
+        initialize()
+    }
+
+    private suspend fun initialize() {
+        bot(kord) {
+            configure()
+
+            prefix {
+                //kord { literal(Config.PREFIX) or mention() }
+                kord { literal("$") or literal("$$") or mention() }
+            }
+
+            kord.apply {
+                selfMentionListener()
+                joinRolesListener()
+                on<ReadyEvent> {
+                    start()
+                }
+            }
+        }
+    }
+
+    private suspend fun start() {
+        GlobalScope.launch {
             log.info { "Starting game animator..." }
+            gameAnimator = GameAnimator(kord)
             gameAnimator.start()
         }
 
-        log.info { "Initializing member join listener..." }
-        client.registerJoinRolesListener()
-
-        CallbackServer.registerListener(YoutubeEventListener(client))
-        CallbackServer.start()
+        GlobalScope.launch {
+            log.info { "Initializing YouTube event listener..." }
+            CallbackServer.registerListener(YoutubeEventListener(kord))
+            CallbackServer.start()
+        }
     }
 
     private fun shutdown() {
