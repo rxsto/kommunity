@@ -45,8 +45,7 @@ class Kommunity {
             configure()
 
             prefix {
-                //kord { literal(Config.PREFIX) or mention() }
-                kord { literal("$") or literal("$$") or mention() }
+                kord { literal(Config.PREFIX) or mention() }
             }
 
             kord.apply {
