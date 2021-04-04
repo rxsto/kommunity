@@ -30,6 +30,6 @@ blocks:
             - checkout
             - curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
             - helm upgrade -i $RELEASE_NAME ./chart
-              --set api.image.tag=:${SEMAPHORE_GIT_SHA}
+              --set image.tag=:${SEMAPHORE_GIT_SHA}
               --namespace $NAMESPACE
               --values $HELMVALUES
