@@ -118,4 +118,4 @@ gradle-app.setting
 db.sqlite
 
 # Environment File
-.env
+*.env

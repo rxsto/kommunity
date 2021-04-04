@@ -1,4 +1,4 @@
-package to.rxs.util
+package to.rxs.kommunity.util
 
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger

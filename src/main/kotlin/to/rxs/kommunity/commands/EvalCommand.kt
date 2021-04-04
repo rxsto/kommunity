@@ -1,22 +1,27 @@
-package to.rxs.commands
+package to.rxs.kommunity.commands
 
-import com.gitlab.kordlib.core.behavior.edit
-import com.gitlab.kordlib.kordx.commands.annotation.AutoWired
-import com.gitlab.kordlib.kordx.commands.annotation.ModuleName
-import com.gitlab.kordlib.kordx.commands.argument.text.StringArgument
-import com.gitlab.kordlib.kordx.commands.kord.model.respondEmbed
-import com.gitlab.kordlib.kordx.commands.kord.module.command
-import com.gitlab.kordlib.kordx.commands.model.command.invoke
+import dev.kord.core.behavior.edit
+import dev.kord.x.commands.annotation.AutoWired
+import dev.kord.x.commands.annotation.ModuleName
+import dev.kord.x.commands.argument.text.StringArgument
+import dev.kord.x.commands.kord.model.respondEmbed
+import dev.kord.x.commands.kord.module.command
+import dev.kord.x.commands.model.command.invoke
+import mu.KotlinLogging
 import java.time.Duration
 import java.time.Instant
 import javax.script.ScriptEngineManager
 import javax.script.ScriptException
 
+private val log = KotlinLogging.logger {}
+
 @AutoWired
 @ModuleName("owner")
 fun evalCommand() = command("eval") {
     precondition {
-        if (author.id.longValue == 254892085000405004L) { // TODO: change to team members once PR was merged
+        if (kord.rest.application.getCurrentApplicationInfo().team?.members?.any { it.user.id == author.id }!!
+                .or(false)
+        ) {
             true
         } else {
             respond("This command can only be executed by an owner of the application!")
@@ -41,7 +46,6 @@ fun evalCommand() = command("eval") {
         }
 
         val compilationTime = Duration.between(compilationTimeStart, Instant.now()).toMillis() / 1000.0
-
         message.edit {
             embed {
                 title = "⏱ Compiled in ${"%.2f".format(compilationTime)}s"

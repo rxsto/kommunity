@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  serviceName: {{ .Values.name }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      annotations:
+        random: "0"
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.packages }}{{ .Values.image.name }}{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.port }}
+        envFrom:
+        - configMapRef: # TODO: create in templates for ease of deployment
+            name: {{ .Values.config }}
+      imagePullSecrets:
+      - name: {{ .Values.secret }}

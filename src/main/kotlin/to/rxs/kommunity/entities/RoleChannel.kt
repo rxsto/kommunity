@@ -1,4 +1,4 @@
-package to.rxs.entities
+package to.rxs.kommunity.entities
 
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -15,6 +15,7 @@ object RoleChannels : IntIdTable("role_channels") {
 
 class RoleChannel(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<RoleChannel>(RoleChannels)
+
     var type by RoleChannels.type
     var channelId by RoleChannels.channelId
     var reactionEmojiId by RoleChannels.reactionEmojiId

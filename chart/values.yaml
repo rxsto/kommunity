@@ -1,0 +1,12 @@
+namespace: rxsto
+packages: gcr.io/rxs-to/
+secret: rxsto-gcr
+name: kommunity
+replicas: 1
+config: kommunity-config
+image:
+  name: kommunity
+  tag: :latest
+port: 7000
+host: youtube-notifications-receiver-endpoint.rxs.to
+path: /
