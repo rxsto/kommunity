@@ -1,9 +1,10 @@
 package to.rxs.kommunity
 
-import dev.kord.common.entity.PresenceStatus
 import dev.kord.core.Kord
 import dev.kord.core.event.gateway.ReadyEvent
 import dev.kord.core.on
+import dev.kord.gateway.Intents
+import dev.kord.gateway.PrivilegedIntent
 import dev.kord.x.commands.kord.bot
 import dev.kord.x.commands.kord.model.prefix.kord
 import dev.kord.x.commands.kord.model.prefix.mention
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import to.rxs.kommunity.core.GameAnimator
 import to.rxs.kommunity.io.connect
-import to.rxs.kommunity.listeners.joinRolesListener
+import to.rxs.kommunity.listeners.joinListener
 import to.rxs.kommunity.listeners.selfMentionListener
 import to.rxs.kommunity.youtube.CallbackServer
 import to.rxs.kommunity.youtube.YoutubeEventListener
@@ -31,11 +32,14 @@ class Kommunity {
         Runtime.getRuntime().addShutdownHook(Thread(::shutdown))
     }
 
+    @OptIn(PrivilegedIntent::class)
     suspend fun launch() {
         log.info { "Connecting to database..." }
         connect()
 
-        kord = Kord(Config.DISCORD_TOKEN)
+        kord = Kord(Config.DISCORD_TOKEN) {
+            intents = Intents.all
+        }
 
         initialize()
     }
@@ -50,7 +54,7 @@ class Kommunity {
 
             kord.apply {
                 selfMentionListener()
-                joinRolesListener()
+                joinListener()
                 on<ReadyEvent> {
                     start()
                 }
