@@ -15,6 +15,7 @@ object Config : EnvironmentConfig("") {
     val LOG_LEVEL by getEnv { Level.valueOf(it) }
     val DISCORD_TOKEN by getEnv()
     val NOTIFICATION_SERVER_PORT by getEnv(1337) { it.toInt() }
+    val GUILD_ID by getEnv()
     val SERVER_NEWS_ROLE by getEnv()
     val VIDEO_NEWS_ROLE by getEnv()
     val STREAM_NEWS_ROLE by getEnv()
@@ -22,6 +23,7 @@ object Config : EnvironmentConfig("") {
     val NEWS_CHANNEL by getEnv()
     val VIDEOS_CHANNEL by getEnv()
     val STREAMS_CHANNEL by getEnv()
+    val WELCOME_CHANNEL by getEnv()
 
 }
 
