@@ -62,7 +62,7 @@ application {
 tasks {
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "15"
+            jvmTarget = "16"
             freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
             useIR = true
         }
@@ -71,7 +71,7 @@ tasks {
 
 jib {
     from {
-        image = "openjdk:15"
+        image = "openjdk:16"
     }
 
     to {
