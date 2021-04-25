@@ -13,7 +13,6 @@ repositories {
     mavenCentral()
     jcenter() // TODO: migrate to central
     maven("https://oss.sonatype.org/content/repositories/snapshots")
-    maven("https://dl.bintray.com/pdvrieze/maven")
 }
 
 dependencies {
@@ -22,8 +21,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", "1.4.3")
 
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.1.0")
-    implementation("net.devrieze", "xmlutil-jvm", "0.81.1")
-    implementation("net.devrieze", "xmlutil-serialization-jvm", "0.81.1")
+    implementation("io.github.pdvrieze.xmlutil", "core-jvm", "0.81.2")
+    implementation("io.github.pdvrieze.xmlutil", "serialization-jvm", "0.81.2")
 
     implementation("org.slf4j", "slf4j-api", "2.0.0-alpha1")
     implementation("org.apache.logging.log4j", "log4j-slf4j18-impl", "2.14.1")
