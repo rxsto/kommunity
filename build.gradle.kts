@@ -10,12 +10,10 @@ group = "to.rxs"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    maven("https://schlaubi.jfrog.io/artifactory/kord/") // TODO: migrate to fixed official artifacts
     mavenCentral()
     jcenter() // TODO: migrate to central
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://dl.bintray.com/pdvrieze/maven")
-    maven("https://jitpack.io")
 }
 
 dependencies {
@@ -42,10 +40,11 @@ dependencies {
     implementation("io.ktor", "ktor-server-netty", "1.5.2")
     implementation("io.ktor", "ktor-serialization", "1.5.2")
 
-    implementation("dev.kord", "kord-core", "0.7.1-SNAPSHOT")
+    implementation("dev.kord", "kord-core", "0.7.0-RC3")
+
+    implementation("dev.kord.x", "emoji", "0.5.0-SNAPSHOT")
 
     implementation("dev.kord.x", "commands-runtime-kord", "0.4.0-SNAPSHOT")
-    implementation("dev.kord.x", "emoji", "0.5.0-SNAPSHOT")
     kapt("dev.kord.x", "commands-processor", "0.4.0-SNAPSHOT")
 
     implementation("org.jetbrains.kotlinx", "kotlinx-datetime", "0.1.1")
