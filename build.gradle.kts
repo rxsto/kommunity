@@ -11,7 +11,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    jcenter() // TODO: !! remove dependencies published on here
     maven("https://oss.sonatype.org/content/repositories/snapshots") // kord.x
 }
 
