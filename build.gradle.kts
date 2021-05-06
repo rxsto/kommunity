@@ -1,25 +1,26 @@
 plugins {
     application
     id("com.google.cloud.tools.jib") version "2.8.0"
-    kotlin("jvm") version "1.4.32"
-    kotlin("kapt") version "1.4.32"
-    kotlin("plugin.serialization") version "1.4.32"
+    kotlin("jvm") version "1.5.0"
+    kotlin("kapt") version "1.5.0"
+    kotlin("plugin.serialization") version "1.5.0"
 }
 
 group = "to.rxs"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots") // kord.x
+    mavenCentral()
 }
 
 dependencies {
     runtimeOnly(kotlin("scripting-jsr223"))
 
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", "1.4.3")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", "1.5.0-RC")
 
-    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.1.0")
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.2.0")
+
     implementation("io.github.pdvrieze.xmlutil", "core-jvm", "0.81.2")
     implementation("io.github.pdvrieze.xmlutil", "serialization-jvm", "0.81.2")
 
@@ -35,10 +36,14 @@ dependencies {
 
     implementation("org.xerial", "sqlite-jdbc", "3.34.0")
 
-    implementation("io.ktor", "ktor-server-netty", "1.5.2")
-    implementation("io.ktor", "ktor-serialization", "1.5.2")
+    implementation("io.ktor", "ktor-server-netty", "1.5.3")
+    implementation("io.ktor", "ktor-serialization", "1.5.3")
 
-    implementation("dev.kord", "kord-core", "0.7.0-RC3")
+    implementation("dev.kord", "kord-core", "kotlin-1.5-20210505.195343-2") {
+        version {
+            strictly("kotlin-1.5-20210505.195343-2")
+        }
+    }
 
     implementation("dev.kord.x", "emoji", "0.5.0-SNAPSHOT")
 
@@ -61,7 +66,6 @@ tasks {
         kotlinOptions {
             jvmTarget = "15"
             freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-            useIR = true
         }
     }
 }
