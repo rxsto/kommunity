@@ -11,7 +11,6 @@ import dev.kord.x.commands.kord.model.prefix.mention
 import dev.kord.x.commands.model.prefix.literal
 import dev.kord.x.commands.model.prefix.or
 import kapt.kotlin.generated.configure
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import to.rxs.kommunity.core.GameAnimator
@@ -63,16 +62,16 @@ class Kommunity {
     }
 
     private suspend fun start() {
-        GlobalScope.launch {
+        kord.launch {
             log.info { "Starting game animator..." }
             gameAnimator = GameAnimator(kord)
             gameAnimator.start()
         }
 
-        GlobalScope.launch {
+        kord.launch {
             log.info { "Initializing YouTube event listener..." }
             CallbackServer.registerListener(YoutubeEventListener(kord))
-            CallbackServer.start()
+            CallbackServer.start(kord)
         }
     }
 

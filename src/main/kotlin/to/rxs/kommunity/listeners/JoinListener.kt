@@ -19,7 +19,8 @@ fun Kord.joinListener() = on<MemberJoinEvent> {
 
         log.debug { "Sending welcome message..." }
         rest.channel.createMessage(Snowflake(Config.WELCOME_CHANNEL)) {
-            content = "${Emojis.wave} hey <@${member.id.asString}>! welcome to rxsto's kommunity! ${Emojis.blush} enjoy your time being! ${Emojis.wink}"
+            content =
+                "${Emojis.wave} hey <@${member.id.asString}>! welcome to rxsto's kommunity! ${Emojis.blush} enjoy your time being! ${Emojis.wink}"
         }
     }
 }
