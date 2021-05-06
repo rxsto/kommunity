@@ -1,5 +1,6 @@
 package to.rxs.kommunity.youtube
 
+import dev.kord.core.Kord
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -9,7 +10,6 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerialName
@@ -27,6 +27,7 @@ interface YouTubeEventSubscriber {
 }
 
 object CallbackServer {
+
     private val listeners = mutableListOf<YouTubeEventSubscriber>()
     private val youTubeListenerExecutor =
         Executors.newFixedThreadPool(1, NamedThreadFactory("YoutubeListeners")).asCoroutineDispatcher()
@@ -34,14 +35,14 @@ object CallbackServer {
         Class.forName("kotlinx.serialization.KSerializer")
         autoPolymorphic = true
         repairNamespaces = true
-        unknownChildHandler = { _, _, _, _ -> Unit }
+        unknownChildHandler = { _, _, _, _ -> }
     }
 
     fun registerListener(listener: YouTubeEventSubscriber) {
         listeners.add(listener)
     }
 
-    fun start() {
+    fun start(kord: Kord) {
         embeddedServer(Netty, Config.NOTIFICATION_SERVER_PORT) {
             install(ContentNegotiation) {
                 serialization(ContentType.Application.Atom, format)
@@ -62,7 +63,7 @@ object CallbackServer {
                     }
 
                     listeners.forEach {
-                        GlobalScope.launch(youTubeListenerExecutor) {
+                        kord.launch(youTubeListenerExecutor) {
                             it.onEvent(event)
                         }
                         context.respond(HttpStatusCode.Accepted)
