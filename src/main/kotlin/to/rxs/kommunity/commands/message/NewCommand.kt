@@ -10,8 +10,8 @@ import dev.kord.x.commands.kord.argument.TextChannelArgument
 import dev.kord.x.commands.kord.module.module
 import dev.kord.x.commands.model.command.invoke
 import io.ktor.client.request.*
-import to.rxs.kommunity.commands.arguments.HastebinArgument
-import to.rxs.kommunity.commands.arguments.URLArgument
+import to.rxs.kommunity.commands.message.arguments.HastebinArgument
+import to.rxs.kommunity.commands.message.arguments.URLArgument
 import to.rxs.kommunity.util.httpClient
 import to.rxs.kommunity.util.withPermission
 
