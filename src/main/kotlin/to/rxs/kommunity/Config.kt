@@ -1,5 +1,6 @@
 package to.rxs.kommunity
 
+import dev.kord.common.entity.Snowflake
 import org.apache.logging.log4j.Level
 import to.rxs.kommunity.util.EnvironmentConfig
 
@@ -16,6 +17,7 @@ object Config : EnvironmentConfig("") {
     val DISCORD_TOKEN by getEnv()
     val NOTIFICATION_SERVER_PORT by getEnv(1337) { it.toInt() }
     val GUILD_ID by getEnv()
+    val ROLES by getEnv { createRolesMap(it) }
     val SERVER_NEWS_ROLE by getEnv()
     val VIDEO_NEWS_ROLE by getEnv()
     val STREAM_NEWS_ROLE by getEnv()
@@ -30,4 +32,14 @@ object Config : EnvironmentConfig("") {
 enum class Environment {
     DEVELOPMENT,
     PRODUCTION
+}
+
+fun createRolesMap  (env: String) : Map<String, Snowflake> {
+    val roles = HashMap<String, Snowflake>()
+    val parts = env.split(",")
+    for (part: String in parts) {
+        val separated = part.split(":")
+        roles[separated[0]] = Snowflake(separated[1])
+    }
+    return roles
 }
