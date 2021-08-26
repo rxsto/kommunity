@@ -10,8 +10,10 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
@@ -19,8 +21,6 @@ import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlElement
 import nl.adaptivity.xmlutil.serialization.XmlSerialName
 import to.rxs.kommunity.Config
-import to.rxs.kommunity.util.NamedThreadFactory
-import java.util.concurrent.Executors
 
 interface YouTubeEventSubscriber {
     suspend fun onEvent(event: YouTubeEvent)
@@ -29,8 +29,7 @@ interface YouTubeEventSubscriber {
 object CallbackServer {
 
     private val listeners = mutableListOf<YouTubeEventSubscriber>()
-    private val youTubeListenerExecutor =
-        Executors.newFixedThreadPool(1, NamedThreadFactory("YoutubeListeners")).asCoroutineDispatcher()
+    private val youTubeListenerExecutor = Dispatchers.IO + Job()
     private val format = XML {
         Class.forName("kotlinx.serialization.KSerializer")
         autoPolymorphic = true
@@ -42,6 +41,7 @@ object CallbackServer {
         listeners.add(listener)
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     fun start(kord: Kord) {
         embeddedServer(Netty, Config.NOTIFICATION_SERVER_PORT) {
             install(ContentNegotiation) {
@@ -87,13 +87,13 @@ data class YouTubeEvent(
         @XmlElement(true) val id: String,
         @XmlElement(true) @XmlSerialName(
             "videoId",
-            namespace = "http://www.youtube.com/xml/schemas/2015",
+            namespace = "https://www.youtube.com/xml/schemas/2015",
             prefix = "yt"
         )
         val videoId: String,
         @XmlElement(true) @XmlSerialName(
             "channelId",
-            namespace = "http://www.youtube.com/xml/schemas/2015",
+            namespace = "https://www.youtube.com/xml/schemas/2015",
             prefix = "yt"
         )
         val channelId: String,

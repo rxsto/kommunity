@@ -1,4 +1,4 @@
-package to.rxs.kommunity.commands.message.arguments
+package to.rxs.kommunity.commands.arguments
 
 internal val HastebinArgument = RegexArgument(
     "hastebin.com/blah.kotlin",

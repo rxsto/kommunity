@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import to.rxs.kommunity.core.GameAnimator
 import to.rxs.kommunity.io.connect
-import to.rxs.kommunity.listeners.interactionListener
 import to.rxs.kommunity.listeners.joinListener
 import to.rxs.kommunity.listeners.selfMentionListener
 import to.rxs.kommunity.youtube.CallbackServer
@@ -55,7 +54,6 @@ class Kommunity {
             kord.apply {
                 selfMentionListener()
                 joinListener()
-                interactionListener()
                 on<ReadyEvent> {
                     start()
                 }

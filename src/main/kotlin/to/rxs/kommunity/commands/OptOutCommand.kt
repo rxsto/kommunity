@@ -3,24 +3,36 @@ package to.rxs.kommunity.commands
 import dev.kord.x.commands.annotation.AutoWired
 import dev.kord.x.commands.annotation.ModuleName
 import dev.kord.x.commands.argument.Argument
+import dev.kord.x.commands.argument.extension.named
 import dev.kord.x.commands.argument.result.ArgumentResult
 import dev.kord.x.commands.argument.result.extension.FilterResult
 import dev.kord.x.commands.argument.result.extension.filter
 import dev.kord.x.commands.argument.text.StringArgument
 import dev.kord.x.commands.argument.text.WordArgument
-import dev.kord.x.commands.kord.model.respondEmbed
-import dev.kord.x.commands.kord.module.command
 import dev.kord.x.commands.model.command.invoke
 import kotlinx.coroutines.flow.firstOrNull
 import to.rxs.kommunity.Config
+import to.rxs.kommunity.command.slashcommands.arguments.asSlashArgument
+import to.rxs.kommunity.command.slashcommands.ephemeralCommand
+import to.rxs.kommunity.command.slashcommands.respond.respondEmbed
+
+private val OperationArgument = WordArgument.whitelist("in", "out").named("operation").asSlashArgument(
+    "The operation to execute"
+) {
+    choice("in", "Opt-in")
+    choice("out", "Opt-out")
+}
+
+private val ArgumentRole = StringArgument.named("role")
+    .asSlashArgument("The role to opt-in/out")
 
 @AutoWired
 @ModuleName("general")
-fun optOutCommand() = command("opt") {
-    invoke(WordArgument.whitelist("in", "out"), StringArgument) { operation, argument ->
+fun optOutCommand() = ephemeralCommand("opt") {
+    invoke(OperationArgument, ArgumentRole) { operation, argument ->
         val optOut = operation.equals("out", ignoreCase = true)
 
-        val guild = guild ?: return@invoke
+        val guild = guild
         val role = guild.roles.firstOrNull { it.name.equals(argument, ignoreCase = true) }
 
         if (role == null || role.id.asString !in Config.OPT_OUT_ROLES) {

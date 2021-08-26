@@ -1,4 +1,4 @@
-package to.rxs.kommunity.commands.message.arguments
+package to.rxs.kommunity.commands.arguments
 
 import dev.kord.x.commands.argument.SingleWordArgument
 import dev.kord.x.commands.argument.result.WordResult
