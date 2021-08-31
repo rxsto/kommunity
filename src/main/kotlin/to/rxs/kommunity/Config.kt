@@ -19,6 +19,7 @@ object Config : EnvironmentConfig("") {
     val GUILD_ID by getEnv { Snowflake(it) }
     val ROLES by getEnv { createRolesMap(it) }
     val SERVER_NEWS_ROLE by environment
+    val ADMIN_ROLE by getEnv { Snowflake(it) }
     val VIDEO_NEWS_ROLE by environment
     val STREAM_NEWS_ROLE by environment
     val OPT_OUT_ROLES = listOf(SERVER_NEWS_ROLE, VIDEO_NEWS_ROLE, STREAM_NEWS_ROLE)

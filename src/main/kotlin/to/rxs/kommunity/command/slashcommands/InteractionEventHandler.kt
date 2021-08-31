@@ -6,6 +6,7 @@ import dev.kord.core.behavior.interaction.InteractionResponseBehavior
 import dev.kord.core.entity.Member
 import dev.kord.core.entity.Role
 import dev.kord.core.entity.User
+import dev.kord.core.entity.channel.ResolvedChannel
 import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.entity.interaction.GuildChatInputCommandInteraction
@@ -163,7 +164,7 @@ class InteractionEventHandler(
             null -> ""
             is Member -> argumentValue.mention
             is User -> argumentValue.mention
-            is TextChannel -> argumentValue.mention
+            is ResolvedChannel -> argumentValue.mention
             is Role -> argumentValue.mention
             else -> argumentValue.toString()
         }

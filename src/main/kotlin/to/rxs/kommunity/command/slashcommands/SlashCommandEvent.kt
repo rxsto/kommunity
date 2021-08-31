@@ -2,8 +2,10 @@ package to.rxs.kommunity.command.slashcommands
 
 import dev.kord.core.Kord
 import dev.kord.core.behavior.GuildBehavior
+import dev.kord.core.behavior.MemberBehavior
 import dev.kord.core.behavior.UserBehavior
 import dev.kord.core.behavior.interaction.InteractionResponseBehavior
+import dev.kord.core.entity.Member
 import dev.kord.core.entity.interaction.GuildChatInputCommandInteraction
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.core.event.Event
@@ -28,6 +30,7 @@ class SlashCommandEvent<T : InteractionResponseBehavior>(
     private val interaction: GuildChatInputCommandInteraction
 ) : ResponseStrategy by strategy, CommandEvent, Event {
     val author: UserBehavior get() = interaction.user
+    val member: Member get() = interaction.member
     val guild: GuildBehavior get() = interaction.guildBehavior
 
 

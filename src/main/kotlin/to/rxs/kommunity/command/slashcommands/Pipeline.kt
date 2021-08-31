@@ -8,9 +8,6 @@ import dev.kord.x.commands.model.processor.ProcessorContext
 object InteractionContext :
     ProcessorContext<InteractionCreateEvent, InteractionCreateEvent, SlashCommandEvent<*>>
 
-typealias InteractionCommandBuilder =
-        CommandBuilder<InteractionCreateEvent, InteractionCreateEvent, SlashCommandEvent<*>>
-
 fun KordProcessorBuilder.slashCommands() {
     eventSources.clear()
     eventSources += InteractionEventSource(kord)

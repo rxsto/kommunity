@@ -57,7 +57,13 @@ fun <T : String?, CONTEXT> Argument<T, CONTEXT>.asSlashArgument(
 ): SlashArgument<T, CONTEXT> = StringSlashArgument(description, this, choiceBuilder)
 
 @OptIn(KordPreview::class)
-private class StringSlashArgument<T : String?, CONTEXT>(
+fun <T, CONTEXT> Argument<T, CONTEXT>.asAnySlashArgument(
+    description: String,
+    choiceBuilder: StringChoiceBuilder.() -> Unit = {},
+): SlashArgument<T, CONTEXT> = StringSlashArgument(description, this, choiceBuilder)
+
+@OptIn(KordPreview::class)
+private class StringSlashArgument<T, CONTEXT>(
     description: String,
     delegate: Argument<T, CONTEXT>,
     private val choiceBuilder: StringChoiceBuilder.() -> Unit,

@@ -6,6 +6,7 @@ import dev.kord.x.commands.annotation.ModuleName
 import dev.kord.x.commands.argument.text.StringArgument
 import dev.kord.x.commands.model.command.invoke
 import to.rxs.kommunity.command.slashcommands.command
+import to.rxs.kommunity.command.slashcommands.description
 import to.rxs.kommunity.command.slashcommands.respond.editEmbed
 import to.rxs.kommunity.command.slashcommands.respond.respondEmbed
 import java.time.Duration
@@ -16,6 +17,8 @@ import javax.script.ScriptException
 @AutoWired
 @ModuleName("owner")
 fun evalCommand() = command("eval") {
+    description("Allows the bot owners to evaluate code")
+
     precondition {
         if (kord.rest.application.getCurrentApplicationInfo().team?.members?.any { it.user.id == author.id }!!
                 .or(false)
@@ -26,6 +29,7 @@ fun evalCommand() = command("eval") {
             false
         }
     }
+
     invoke {
         respondEmbed {
             title = "Please enter code!"
