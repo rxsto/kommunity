@@ -1,4 +1,4 @@
-package to.rxs.kommunity.command.slashcommands.arguments
+package to.rxs.kommunity.command.slashcommands
 
 import dev.kord.rest.builder.interaction.ApplicationCommandCreateBuilder
 import dev.kord.rest.builder.interaction.BaseInputChatBuilder

@@ -16,7 +16,7 @@ object Config : EnvironmentConfig("") {
     val LOG_LEVEL by getEnv { Level.valueOf(it) }
     val DISCORD_TOKEN by environment
     val NOTIFICATION_SERVER_PORT by getEnv(1337) { it.toInt() }
-    val GUILD_ID by environment
+    val GUILD_ID by getEnv { Snowflake(it) }
     val ROLES by getEnv { createRolesMap(it) }
     val SERVER_NEWS_ROLE by environment
     val VIDEO_NEWS_ROLE by environment

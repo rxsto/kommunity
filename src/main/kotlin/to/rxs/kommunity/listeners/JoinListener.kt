@@ -11,7 +11,7 @@ import to.rxs.kommunity.Config
 private val log = KotlinLogging.logger {}
 
 fun Kord.joinListener() = on<MemberJoinEvent> {
-    if (guildId.asString == Config.GUILD_ID && !member.isBot) {
+    if (guildId == Config.GUILD_ID && !member.isBot) {
         log.debug { "Adding roles to ${member.displayName} (${member.id})..." }
         member.addRole(Snowflake(Config.SERVER_NEWS_ROLE))
         member.addRole(Snowflake(Config.VIDEO_NEWS_ROLE))
