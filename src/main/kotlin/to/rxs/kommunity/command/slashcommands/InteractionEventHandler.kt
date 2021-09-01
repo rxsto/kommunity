@@ -7,7 +7,6 @@ import dev.kord.core.entity.Member
 import dev.kord.core.entity.Role
 import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.ResolvedChannel
-import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.entity.interaction.ChatInputCommandInteraction
 import dev.kord.core.entity.interaction.GuildChatInputCommandInteraction
 import dev.kord.core.entity.interaction.InteractionCommand

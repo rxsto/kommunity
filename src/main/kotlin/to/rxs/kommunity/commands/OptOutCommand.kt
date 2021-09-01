@@ -11,7 +11,6 @@ import dev.kord.x.commands.argument.result.extension.filter
 import dev.kord.x.commands.argument.text.StringArgument
 import dev.kord.x.commands.argument.text.WordArgument
 import dev.kord.x.commands.model.command.invoke
-import kotlinx.coroutines.flow.firstOrNull
 import to.rxs.kommunity.Config
 import to.rxs.kommunity.command.slashcommands.arguments.asSlashArgument
 import to.rxs.kommunity.command.slashcommands.description
@@ -52,13 +51,13 @@ fun optOutCommand() = ephemeralCommand("opt") {
         }
 
         if (optOut) {
-            kord.rest.guild.deleteRoleFromGuildMember(guild.id, author.id, role.id, "User opt out command")
+            member.removeRole(role.id, "User opt out command")
             respondEmbed {
                 title = "Opted out"
                 description = "Successfully opted out of `${role.name}` notifications"
             }
         } else {
-            kord.rest.guild.addRoleToGuildMember(guild.id, author.id, role.id, "User opt in command")
+            member.addRole(role.id, "User opt in command")
             respondEmbed {
                 title = "Opted in"
                 description = "Successfully opted in for `${role.name}` notifications"
