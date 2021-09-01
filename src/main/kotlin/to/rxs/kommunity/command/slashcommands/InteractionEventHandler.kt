@@ -91,6 +91,8 @@ class InteractionEventHandler(
         val result =
             parseArguments(commandEvent.interactionCommand, arguments, event)
 
+        val invocationText by lazy { errorEvent.interaction.buildInvocationString() }
+
         val (items) = when (result) {
             is ArgumentsResult.Success -> result
             is ArgumentsResult.Failure -> return with(errorHandler) {
@@ -98,7 +100,7 @@ class InteractionEventHandler(
                 val rejection = ErrorHandler.RejectedArgument(
                     this@execute,
                     errorEvent,
-                    "invoke",
+                    invocationText,
                     result.atChar,
                     result.argument,
                     result.failure.reason
@@ -166,6 +168,31 @@ class InteractionEventHandler(
             is ResolvedChannel -> argumentValue.mention
             is Role -> argumentValue.mention
             else -> argumentValue.toString()
+        }
+    }
+
+    private fun ChatInputCommandInteraction.buildInvocationString(): String {
+        fun Any?.stringify(): String =
+            when (this) {
+                is Member -> id.asString
+                is User -> id.asString
+                is ResolvedChannel -> id.asString
+                is Role -> id.asString
+                else -> toString()
+            }
+
+        return buildString {
+            append('/')
+            append(name)
+
+            command.options.forEach { (name, option) ->
+                append(' ')
+                append(name)
+                append(':')
+                append(' ')
+
+                append(option.value.stringify())
+            }
         }
     }
 }
