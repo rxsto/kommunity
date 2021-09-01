@@ -32,7 +32,7 @@ fun interface AcknowledgingMethod<T : InteractionResponseBehavior> {
 internal object Ack : Metadata.Key<AcknowledgingMethod<*>>
 
 @Suppress("UNCHECKED_CAST") // it's either set or T is PublicInteractionResponseBehavior
-val <T : InteractionResponseBehavior>  Command<SlashCommandEvent<out T>>.acknowledgingMethod: AcknowledgingMethod<T>
+val <T : InteractionResponseBehavior> Command<SlashCommandEvent<out T>>.acknowledgingMethod: AcknowledgingMethod<T>
     get() = (data.metadata[Ack] ?: AcknowledgingMethod.Public) as AcknowledgingMethod<T>
 
 @OptIn(ExperimentalContracts::class)

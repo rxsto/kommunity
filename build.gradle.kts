@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.5.30"
     kotlin("kapt") version "1.5.30"
     kotlin("plugin.serialization") version "1.5.30"
+    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
 }
 
 group = "to.rxs"
@@ -87,7 +88,10 @@ tasks {
             freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
         }
     }
+}
 
+ktlint {
+    disabledRules.set(listOf("no-wildcard-imports"))
 }
 
 kapt {

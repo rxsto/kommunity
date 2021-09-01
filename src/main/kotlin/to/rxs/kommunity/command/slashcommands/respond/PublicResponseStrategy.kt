@@ -20,7 +20,7 @@ class PublicResponseStrategy(private val delegate: PublicInteractionResponseBeha
         return PublicFollowupResponse(followUp)
     }
 
-    private class PublicFollowupResponse(private val delegate: PublicFollowupMessage) : ResponseStrategy.EditableResponse{
+    private class PublicFollowupResponse(private val delegate: PublicFollowupMessage) : ResponseStrategy.EditableResponse {
         override suspend fun edit(builder: MessageModifyBuilder.() -> Unit): ResponseStrategy.EditableResponse {
             delegate.edit(builder)
 

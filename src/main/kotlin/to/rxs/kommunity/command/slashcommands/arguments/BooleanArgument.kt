@@ -34,13 +34,13 @@
 
 package to.rxs.kommunity.command.slashcommands.arguments
 
-import to.rxs.kommunity.command.slashcommands.SlashArgument
-import dev.kord.x.commands.argument.primitive.BooleanArgument
 import dev.kord.common.annotation.KordPreview
 import dev.kord.rest.builder.interaction.BaseInputChatBuilder
 import dev.kord.rest.builder.interaction.BooleanBuilder
 import dev.kord.rest.builder.interaction.boolean
 import dev.kord.x.commands.argument.Argument
+import dev.kord.x.commands.argument.primitive.BooleanArgument
+import to.rxs.kommunity.command.slashcommands.SlashArgument
 
 /**
  * Turns this [Argument] into a [SlashArgument] with [description]

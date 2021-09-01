@@ -66,14 +66,14 @@ fun optOutCommand() = ephemeralCommand("opt") {
     }
 }
 
-
 /**
  * Returns an Argument that, on top of the supplied argument, only accepts values in [whitelist].
  *
  * @param ignoreCase true to ignore character case when comparing strings. By default true.
  */
 fun <CONTEXT> Argument<String, CONTEXT>.whitelist(
-    vararg whitelist: String, ignoreCase: Boolean = true
+    vararg whitelist: String,
+    ignoreCase: Boolean = true
 ): Argument<String, CONTEXT> = object : Argument<String, CONTEXT> by this {
     override suspend fun parse(text: String, fromIndex: Int, context: CONTEXT): ArgumentResult<String> {
         // TODO: implement actual functionality

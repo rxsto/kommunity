@@ -21,7 +21,7 @@ fun evalCommand() = command("eval") {
 
     precondition {
         if (kord.rest.application.getCurrentApplicationInfo().team?.members?.any { it.user.id == author.id }!!
-                .or(false)
+            .or(false)
         ) {
             true
         } else {

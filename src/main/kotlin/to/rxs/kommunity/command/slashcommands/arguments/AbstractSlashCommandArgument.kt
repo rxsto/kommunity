@@ -34,11 +34,11 @@
 
 package to.rxs.kommunity.command.slashcommands.arguments
 
-import to.rxs.kommunity.command.slashcommands.SlashArgument
 import dev.kord.common.annotation.KordPreview
 import dev.kord.rest.builder.interaction.OptionsBuilder
 import dev.kord.x.commands.argument.Argument
 import dev.kord.x.commands.argument.extension.optional
+import to.rxs.kommunity.command.slashcommands.SlashArgument
 import java.util.*
 
 /**

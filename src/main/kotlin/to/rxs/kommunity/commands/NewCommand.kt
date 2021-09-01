@@ -28,7 +28,8 @@ import to.rxs.kommunity.util.httpClient
 import to.rxs.kommunity.util.withPermission
 
 @Suppress("UNCHECKED_CAST")
-private object ChannelArgument : SingleWordArgument<TextChannel, InteractionCreateEvent>(),
+private object ChannelArgument :
+    SingleWordArgument<TextChannel, InteractionCreateEvent>(),
     SlashArgument<TextChannel, InteractionCreateEvent> {
     private val mentionRegex = Regex("""^<#\d+>$""")
     override val name: String = "channel"
@@ -40,7 +41,8 @@ private object ChannelArgument : SingleWordArgument<TextChannel, InteractionCrea
         val snowflake = when {
             number != null -> Snowflake(number)
             word.matches(mentionRegex) -> Snowflake(
-                word.removeSuffix(">").dropWhile { !it.isDigit() })
+                word.removeSuffix(">").dropWhile { !it.isDigit() }
+            )
             else -> return failure("Expected mention.")
         }
 

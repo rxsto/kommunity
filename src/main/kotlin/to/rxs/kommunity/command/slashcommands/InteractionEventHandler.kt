@@ -67,13 +67,11 @@ class InteractionEventHandler(
             execute(commandEvent, event, this@onEvent, errorEvent)
         }
 
-
         val guildInteraction = event.interaction as? GuildChatInputCommandInteraction ?: return
         val filters = getFilters(context)
         if (!filters.all { it(event) }) return
         val commandName = guildInteraction.name
         val foundCommand = getCommand(context, commandName) ?: return
-
 
         foundCommand.run(guildInteraction)
     }
@@ -109,7 +107,6 @@ class InteractionEventHandler(
             }
             is ArgumentsResult.TooManyWords -> error("Discord bunged up")
         }
-
 
         try {
             invoke(commandEvent, items)

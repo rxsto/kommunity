@@ -17,7 +17,7 @@ import to.rxs.kommunity.util.permission
 
 suspend fun CommandProcessor.updateSlashCommands(kord: Kord) {
     val commandConfigure:
-            MultiApplicationCommandBuilder.() -> Unit = {
+        MultiApplicationCommandBuilder.() -> Unit = {
         this@updateSlashCommands.commands.values.distinct().forEach { addCommand(it) }
     }
 

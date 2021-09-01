@@ -27,7 +27,6 @@ object Config : EnvironmentConfig("") {
     val VIDEOS_CHANNEL by environment
     val STREAMS_CHANNEL by environment
     val WELCOME_CHANNEL by environment
-
 }
 
 enum class Environment {

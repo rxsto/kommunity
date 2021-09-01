@@ -13,7 +13,6 @@ import dev.kord.x.commands.model.prefix.or
 import kapt.kotlin.generated.configure
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
-import to.rxs.kommunity.command.slashcommands.InteractionEventSource
 import to.rxs.kommunity.command.slashcommands.slashCommands
 import to.rxs.kommunity.command.slashcommands.updateSlashCommands
 import to.rxs.kommunity.core.GameAnimator

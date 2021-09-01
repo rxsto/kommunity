@@ -15,7 +15,6 @@ interface ResponseStrategy {
         content = message
     }
 
-
     suspend fun followUp(builder: MessageCreateBuilder.() -> Unit): EditableResponse
 
     interface EditableResponse {
@@ -44,7 +43,7 @@ suspend inline fun ResponseStrategy.EditableResponse.editEmbed(crossinline embed
         callsInPlace(embedBuilder, InvocationKind.EXACTLY_ONCE)
     }
 
-    return  edit {
+    return edit {
         embed(embedBuilder)
     }
 }

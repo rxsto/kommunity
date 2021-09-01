@@ -2,7 +2,6 @@ package to.rxs.kommunity.command.slashcommands
 
 import dev.kord.core.Kord
 import dev.kord.core.behavior.GuildBehavior
-import dev.kord.core.behavior.MemberBehavior
 import dev.kord.core.behavior.UserBehavior
 import dev.kord.core.behavior.interaction.InteractionResponseBehavior
 import dev.kord.core.entity.Member
@@ -32,7 +31,6 @@ class SlashCommandEvent<T : InteractionResponseBehavior>(
     val author: UserBehavior get() = interaction.user
     val member: Member get() = interaction.member
     val guild: GuildBehavior get() = interaction.guildBehavior
-
 
     /**
      *  Suspends until the user invoking this command enters a message in

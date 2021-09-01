@@ -25,7 +25,7 @@ fun <T : InteractionResponseBehavior> CommandBuilder<*, *, SlashCommandEvent<T>>
             respondEmbed {
                 title = "${Emojis.noEntrySign} You're not permitted to execute this command!"
                 description =
-                    "In order to successfully execute this command you need to have the `${permission}` permission."
+                    "In order to successfully execute this command you need to have the `$permission` permission."
             }
             false
         }
