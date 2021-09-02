@@ -5,18 +5,21 @@ import dev.kord.core.event.gateway.ReadyEvent
 import dev.kord.core.on
 import dev.kord.gateway.Intents
 import dev.kord.gateway.PrivilegedIntent
-import dev.kord.x.commands.kord.bot
 import dev.kord.x.commands.kord.model.prefix.kord
 import dev.kord.x.commands.kord.model.prefix.mention
+import dev.kord.x.commands.kord.model.processor.KordProcessorBuilder
 import dev.kord.x.commands.model.prefix.literal
 import dev.kord.x.commands.model.prefix.or
 import kapt.kotlin.generated.configure
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import to.rxs.kommunity.command.slashcommands.slashCommands
+import to.rxs.kommunity.command.slashcommands.updateSlashCommands
 import to.rxs.kommunity.core.GameAnimator
 import to.rxs.kommunity.io.connect
 import to.rxs.kommunity.listeners.joinListener
 import to.rxs.kommunity.listeners.selfMentionListener
+import to.rxs.kommunity.util.bot
 import to.rxs.kommunity.youtube.CallbackServer
 import to.rxs.kommunity.youtube.YoutubeEventListener
 
@@ -44,12 +47,14 @@ class Kommunity {
     }
 
     private suspend fun initialize() {
-        bot(kord) {
+        val configureBot: suspend KordProcessorBuilder.() -> Unit = {
             configure()
 
             prefix {
                 kord { literal(Config.PREFIX) or mention() }
             }
+
+            slashCommands()
 
             kord.apply {
                 selfMentionListener()
@@ -58,6 +63,10 @@ class Kommunity {
                     start()
                 }
             }
+        }
+
+        bot(kord, configureBot) {
+            updateSlashCommands(kord)
         }
     }
 

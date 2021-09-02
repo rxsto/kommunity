@@ -56,5 +56,15 @@
       <option name="name" value="maven" />
       <option name="url" value="https://schlaubi.jfrog.io/artifactory/kord/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://schlaubi.jfrog.io/artifactory/envconf" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://schlaubi.jfrog.io/artifactory/envconf/" />
+    </remote-repository>
   </component>
 </project>
