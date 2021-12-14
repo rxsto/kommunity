@@ -27,9 +27,7 @@ dependencies {
     implementation("net.devrieze", "xmlutil-jvm", "0.81.1")
     implementation("net.devrieze", "xmlutil-serialization-jvm", "0.81.1")
 
-    implementation("org.slf4j", "slf4j-api", "2.0.0-alpha1")
-    implementation("org.apache.logging.log4j", "log4j-slf4j18-impl", "2.14.1")
-    implementation("org.apache.logging.log4j", "log4j-core", "2.14.1")
+    implementation("ch.qos.logback", "logback-classic", "1.2.6")
 
     implementation("org.jetbrains.exposed", "exposed-core", "0.30.1")
     implementation("org.jetbrains.exposed", "exposed-dao", "0.30.1")
