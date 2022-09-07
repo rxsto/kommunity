@@ -12,9 +12,18 @@ version = "1.0-SNAPSHOT"
 repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots") // kord.x
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+        name = "ktor-eap"
+    }
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+        name = "ktor-eap"
+    }
 }
 
 dependencies {
+    implementation("io.ktor:ktor-server-content-negotiation:2.0.0-eap-256")
     runtimeOnly(kotlin("scripting-jsr223"))
 
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8", "1.5.0-RC")
@@ -39,11 +48,7 @@ dependencies {
     implementation("io.ktor", "ktor-server-netty", "1.5.3")
     implementation("io.ktor", "ktor-serialization", "1.5.3")
 
-    implementation("dev.kord", "kord-core", "kotlin-1.5-20210505.195343-2") {
-        version {
-            strictly("kotlin-1.5-20210505.195343-2")
-        }
-    }
+    implementation("dev.kord", "kord-core", "0.8.0-M8")
 
     implementation("dev.kord.x", "emoji", "0.5.0-SNAPSHOT")
 

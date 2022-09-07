@@ -34,7 +34,7 @@ fun newCommand() = module("admin") {
         ) { channel, titleSentence, avatarUrl, footerSentence, hastebinMatch ->
             val (_, hastebin, code) = hastebinMatch.groupValues
             val rawUrl = "https://$hastebin/raw/$code"
-            val content = httpClient.get<String>(rawUrl)
+            val content = httpClient.get(rawUrl).body<String>()
             channel.createEmbed {
                 title = titleSentence
                 description = content

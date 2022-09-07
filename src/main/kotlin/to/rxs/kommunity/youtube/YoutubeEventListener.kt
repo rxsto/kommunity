@@ -11,7 +11,7 @@ class YoutubeEventListener(private val client: Kord) : YouTubeEventSubscriber {
 
     override suspend fun onEvent(event: YouTubeEvent) {
         val thumbnailUrl = "https://img.youtube.com/vi/${event.entry.videoId}/hqdefault.jpg"
-        val colorCode = httpClient.get<String>("https://color.aero.bot/dominant?image=$thumbnailUrl")
+        val colorCode = httpClient.get("https://color.aero.bot/dominant?image=$thumbnailUrl").body<String>()
         client.rest.channel.createMessage(Snowflake(Config.VIDEOS_CHANNEL)) {
             content = "<@&${Config.VIDEO_NEWS_ROLE}> \uD83D\uDD14 ${event.entry.link.href}"
             embed {
